@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/Tank.tscn" type="PackedScene" id=1]
+
+[node name="teste_area" type="Node"]
+
+[node name="Tank" parent="." instance=ExtResource( 1 )]
+position = Vector2( 471.392, 507.802 )
+bodie = 3
