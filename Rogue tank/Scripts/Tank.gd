@@ -6,7 +6,7 @@ var speed = 100
 var pre_bullet = preload("res://scenes/Bullet.tscn")
 #variaveis para trocar a sprite das skins. Export para criar a aba de variaveis. int entre aspas para nomear a lista.
 export (int, "Big Red", "Blue", "Dark", "Dark Large", "Green", "huge", "Red", "Sand") var bodie = 0
-export var barrel = 3
+export (int, "special1", "special2", "special3", "special4", "special5", "special6", "special7", "tblue1", "tblue2", "tblue3", "tdark1", "tdark2", "tdark3", "tgreen1", "tgreen2", "tgreen3", "tred1", "tred2", "tred3", "tsand1", "tsand2", "tsand3") var barrel = 0
 
 
 
