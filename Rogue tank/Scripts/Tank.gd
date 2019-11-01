@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 #Velocidade do tiro
@@ -5,8 +6,9 @@ var speed = 100
 #Variavel que pré carrega uma cena para ser utilizado
 var pre_bullet = preload("res://scenes/Bullet.tscn")
 #variaveis para trocar a sprite das skins. Export para criar a aba de variaveis. int entre aspas para nomear a lista.
-export (int, "Big Red", "Blue", "Dark", "Dark Large", "Green", "huge", "Red", "Sand") var bodie = 0
-export (int, "special1", "special2", "special3", "special4", "special5", "special6", "special7", "tblue1", "tblue2", "tblue3", "tdark1", "tdark2", "tdark3", "tgreen1", "tgreen2", "tgreen3", "tred1", "tred2", "tred3", "tsand1", "tsand2", "tsand3") var barrel = 0
+# setget para visualizar as mudanças e fazer função
+export (int, "Big Red", "Blue", "Dark", "Dark Large", "Green", "huge", "Red", "Sand") var bodie = 0 setget set_bodie
+export (int, "special1", "special2", "special3", "special4", "special5", "special6", "special7", "tblue1", "tblue2", "tblue3", "tdark1", "tdark2", "tdark3", "tgreen1", "tgreen2", "tgreen3", "tred1", "tred2", "tred3", "tsand1", "tsand2", "tsand3") var barrel = 0 setget set_barrel
 
 
 
@@ -52,8 +54,16 @@ func _ready():
 	$Barrel/Sprite.texture = load(barrels[barrel])
 	pass 
 
+#funcão que é chamada quando precisa redesenhar o objeto
+func _draw():
+	Sprite.texture = load(bodies[bodie])
+	$Barrel/Sprite.texture = load(barrels[barrel])
  
 func _process(delta):
+	
+	if Engine.editor_hint:
+		return
+		
 	var dir_x = 0
 	var dir_y = 0
 	
@@ -82,4 +92,16 @@ func _process(delta):
 	
 	translate(Vector2(dir_x,dir_y) * delta * speed )
 	
-	pass
+	
+func set_bodie (val):
+	#bodie igual valor
+	bodie = val
+	#se estiver em modo de edição (sem ser no play)
+	if Engine.editor_hint:
+		update()
+func set_barrel (val):
+	#bodie igual valor
+	barrel = val
+	#se estiver em modo de edição (sem ser no play)
+	if Engine.editor_hint:
+		update()
