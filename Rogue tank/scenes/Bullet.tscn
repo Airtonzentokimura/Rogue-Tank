@@ -1,11 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://sprites/bulletRed1_outline.png" type="Texture" id=2]
+[ext_resource path="res://sprites/smokeWhite1.png" type="Texture" id=3]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.47456
 height = 6.08589
+
+[sub_resource type="Curve" id=2]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=3]
+curve = SubResource( 2 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 3 )
 
 [node name="Bullet" type="Area2D" groups=[
 "Cannon_bullets",
@@ -26,4 +41,9 @@ shape = SubResource( 1 )
 position = Vector2( 0.054291, -0.162873 )
 rotation = 1.5708
 scale = Vector2( 0.47338, 0.809983 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -10.5697, 0.603653 )
+process_material = SubResource( 4 )
+texture = ExtResource( 3 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

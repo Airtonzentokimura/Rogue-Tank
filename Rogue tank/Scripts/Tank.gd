@@ -50,13 +50,12 @@ var barrels = [
 ]
 
 func _ready():
-	$Sprite.texture = load(bodies[bodie])
-	$Barrel/Sprite.texture = load(barrels[barrel])
+	print (self)
 	pass 
 
 #funcão que é chamada quando precisa redesenhar o objeto
 func _draw():
-	Sprite.texture = load(bodies[bodie])
+	$Sprite.texture = load(bodies[bodie])
 	$Barrel/Sprite.texture = load(barrels[barrel])
  
 func _process(delta):
@@ -77,7 +76,7 @@ func _process(delta):
 		dir_y += 1
 	if Input.is_action_just_pressed("ui_shoot"):
 		#Funcao que limita o numero de balas
-		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 30:
+		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 6:
 			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene	
 			var bullet = pre_bullet.instance()
 			#Local e posição que ira sair a imagem 
