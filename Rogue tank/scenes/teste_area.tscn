@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Tank.tscn" type="PackedScene" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 56.667
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 491.679, 18.6399 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 25.7041, 247.28 )
 
 [node name="teste_area" type="Node"]
 
@@ -12,3 +21,31 @@ barrel = 14
 [node name="Tank2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 636.742, 508.613 )
 barrel = 5
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="circle" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 881.02, 344.38 )
+shape = SubResource( 1 )
+
+[node name="circle2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 293.16, 551.44 )
+shape = SubResource( 1 )
+
+[node name="wall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 580.316, 180 )
+shape = SubResource( 2 )
+
+[node name="wall3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 580.316, 710 )
+shape = SubResource( 2 )
+
+[node name="wall2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 116.216, 444.34 )
+shape = SubResource( 3 )
+
+[node name="wall4" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 1050, 444.34 )
+shape = SubResource( 3 )
