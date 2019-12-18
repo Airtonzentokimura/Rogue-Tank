@@ -48,7 +48,7 @@ var barrels = [
 	"res://sprites/tankSand_barrel2.png",
 	"res://sprites/tankSand_barrel3.png",
 ]
-
+# esta funcao é chamada antes dos nos filhos e quando entrar em cena e ativada
 func _ready():
 	print (self)
 	pass 
@@ -57,7 +57,7 @@ func _ready():
 func _draw():
 	$Sprite.texture = load(bodies[bodie])
 	$Barrel/Sprite.texture = load(barrels[barrel])
- 
+#essa funcao e ativada a cada frame do jogo 
 func _process(delta):
 	
 	if Engine.editor_hint:

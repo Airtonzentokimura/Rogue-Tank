@@ -24,7 +24,7 @@ barrel = 5
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 4
-collision_mask = 0
+collision_mask = 11
 
 [node name="circle" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2( 881.02, 344.38 )
