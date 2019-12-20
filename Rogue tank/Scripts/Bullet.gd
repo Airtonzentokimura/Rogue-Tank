@@ -14,7 +14,7 @@ onready var init_pos = global_position
 func _ready():
 	
 	pass
-	
+#
 func _process(delta):
 	
 	if live:
@@ -50,9 +50,10 @@ func autodestroy():
 		live = false
 	#$ = patio ou no Sprite .visible = visibilidade (desenho nao sera visivel)
 		$Sprite.visible = false
+		#call_deferred = chama a funcao depois de terminar a funcao principal
+		call_deferred("set_monitoring", false)
 	#monitoring = colisão false = desligado monitorable = colisão
-		monitoring = false
-		monitorable = false
+		call_deferred("set_monitorable",false)
 	#$ = patio ou no Anim_self_destruction .play = faz a animação "explode" nome da animação
 		$Anim_self_destruction.play("explode")
 	# yield = de preferencia a e espere a execucao (argumento 1 que e o patio ou no , argumento 2 sinal do no ou patio)

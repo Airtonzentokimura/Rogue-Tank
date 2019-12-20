@@ -1,6 +1,11 @@
 tool
 extends KinematicBody2D
 
+onready var BULLET_TANK_GROUP = "bullet-" + str(self)
+
+#PI = meio circulo por segundo
+const ROT_VEL = PI/2
+
 #Velocidade do tiro
 var speed = 100
 #Variavel que pré carrega uma cena para ser utilizado
@@ -57,40 +62,54 @@ func _ready():
 func _draw():
 	$Sprite.texture = load(bodies[bodie])
 	$Barrel/Sprite.texture = load(barrels[barrel])
-#essa funcao e ativada a cada frame do jogo 
-func _process(delta):
+#essa funcao e ativada a cada frame do jogo e e usada quando nao esta se trabalhando com fisica
+#para trabalhar com fisica e recomendado usar physics_process
+func _physics_process(delta):
 	
 	if Engine.editor_hint:
 		return
 		
-	var dir_x = 0
-	var dir_y = 0
-	
+#==================================================
+#	var dir_x = 0
+#	var dir_y = 0
+#
+#	if Input.is_action_pressed("ui_right"):
+#		dir_x += 1
+#	if Input.is_action_pressed("ui_left"):
+#		dir_x -= 1
+#	if Input.is_action_pressed("ui_up"):
+#		dir_y -= 1
+#	if Input.is_action_pressed("ui_down"):
+#		dir_y += 1
+#	if Input.is_action_just_pressed("ui_shoot"):
+#		#Funcao que limita o numero de balas
+#		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 6:
+#			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene	
+#			var bullet = pre_bullet.instance()
+#			#Local e posição que ira sair a imagem 
+#			bullet.global_position = $Barrel/Muzzle.global_position
+#			#Direcao da bala
+#			bullet.dir = Vector2(cos(rotation),sin(rotation)).normalized()
+#			#Adiciona a animação na cena
+#			get_parent().add_child(bullet)
+#			$Barrel/AnimationPlayer.play("Fire")
+#
+#	look_at(get_global_mouse_position())
+#
+#	move_and_slide( Vector2(dir_x , dir_y) * speed )
+#======================================================
+#variavel da rotacao do tanque
+	var rot = 0
+#input = entrada de comando humano is_action_pressed = se apertar continua o comando
 	if Input.is_action_pressed("ui_right"):
-		dir_x += 1
+		rot += 1
+		pass
+#input = entrada de comando humano is_action_pressed = se apertar continua o comando	
 	if Input.is_action_pressed("ui_left"):
-		dir_x -= 1
-	if Input.is_action_pressed("ui_up"):
-		dir_y -= 1
-	if Input.is_action_pressed("ui_down"):
-		dir_y += 1
-	if Input.is_action_just_pressed("ui_shoot"):
-		#Funcao que limita o numero de balas
-		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 6:
-			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene	
-			var bullet = pre_bullet.instance()
-			#Local e posição que ira sair a imagem 
-			bullet.global_position = $Barrel/Muzzle.global_position
-			#Direcao da bala
-			bullet.dir = Vector2(cos(rotation),sin(rotation)).normalized()
-			#Adiciona a animação na cena
-			get_parent().add_child(bullet)
-			$Barrel/AnimationPlayer.play("Fire")
-	
-	look_at(get_global_mouse_position())
-	
-	move_and_slide( Vector2(dir_x , dir_y) * speed )
-	
+		rot -= 1
+		pass
+	#rotacionando com a velocidade, o tempo em frame (delta) e comando (rot)
+	rotate(ROT_VEL*delta*rot)
 	
 func set_bodie (val):
 	#bodie igual valor
