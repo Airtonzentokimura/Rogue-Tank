@@ -5,9 +5,10 @@ onready var BULLET_TANK_GROUP = "bullet-" + str(self)
 
 #PI = meio circulo por segundo
 const ROT_VEL = PI/2
-
-#Velocidade do tiro
-var speed = 100
+#Velocidade de movimento
+var MAX_SPEED = 100
+#Variavel da aceleracao do tanque. Foi posto aqui para que nao zere cada vez que a funcao e chamada.
+var acell = 0
 #Variavel que pré carrega uma cena para ser utilizado
 var pre_bullet = preload("res://scenes/Bullet.tscn")
 #variaveis para trocar a sprite das skins. Export para criar a aba de variaveis. int entre aspas para nomear a lista.
@@ -100,6 +101,15 @@ func _physics_process(delta):
 #======================================================
 #variavel da rotacao do tanque
 	var rot = 0
+#variavel de aceleracao do tanque
+	
+#variavel de direcao
+	var dir = 0
+	
+	if Input.is_action_pressed("ui_up"):
+		dir += 1
+	if Input.is_action_pressed("ui_down"):
+		dir -= 1
 #input = entrada de comando humano is_action_pressed = se apertar continua o comando
 	if Input.is_action_pressed("ui_right"):
 		rot += 1
@@ -110,6 +120,31 @@ func _physics_process(delta):
 		pass
 	#rotacionando com a velocidade, o tempo em frame (delta) e comando (rot)
 	rotate(ROT_VEL*delta*rot)
+	
+	#se a direcao for diferente de zero = se eu apertei o botao
+	if dir != 0:
+		#funcao que faz a velocidade aumentar gradativamente ou numero x para y
+		acell = lerp(acell, MAX_SPEED * dir, .003)
+	#senao eu zero a variavem velocidade e espero o sinal
+	else:
+		acell = lerp(acell, 0, .005)
+	print(acell)
+	#movimenta e bate em duas direcoes em velocidade e variacao entre cos e seno. Rotation e do script. 
+	#Dir e a variavel que eu fiz e depois foi transferido para o lerp
+	move_and_slide(Vector2( cos(rotation), sin(rotation) )* acell)
+	
+	if Input.is_action_just_pressed("ui_shoot"):
+		#Funcao que limita o numero de balas
+		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 6:
+			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene	
+			var bullet = pre_bullet.instance()
+			#Local e posição que ira sair a imagem 
+			bullet.global_position = $Barrel/Muzzle.global_position
+			#Direcao da bala
+			bullet.dir = Vector2(cos(rotation),sin(rotation)).normalized()
+			#Adiciona a animação na cena
+			get_parent().add_child(bullet)
+			$Barrel/AnimationPlayer.play("Fire")
 	
 func set_bodie (val):
 	#bodie igual valor
