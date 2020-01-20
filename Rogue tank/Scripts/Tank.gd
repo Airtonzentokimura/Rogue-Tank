@@ -4,7 +4,7 @@ extends KinematicBody2D
 onready var BULLET_TANK_GROUP = "bullet-" + str(self)
 
 #PI = meio circulo por segundo
-const ROT_VEL = PI/2
+const ROT_VEL = PI/4
 #Velocidade de movimento
 var MAX_SPEED = 100
 #Variavel da aceleracao do tanque. Foi posto aqui para que nao zere cada vez que a funcao e chamada.
@@ -128,7 +128,9 @@ func _physics_process(delta):
 	#senao eu zero a variavem velocidade e espero o sinal
 	else:
 		acell = lerp(acell, 0, .005)
-	print(acell)
+	#Chamo a entidade Barrel (node 2d) e look at = olha para. Get_global_mouse_position = posicao onde esta o mouse.
+	$Barrel.look_at(get_global_mouse_position())
+	
 	#movimenta e bate em duas direcoes em velocidade e variacao entre cos e seno. Rotation e do script. 
 	#Dir e a variavel que eu fiz e depois foi transferido para o lerp
 	move_and_slide(Vector2( cos(rotation), sin(rotation) )* acell)
@@ -140,8 +142,9 @@ func _physics_process(delta):
 			var bullet = pre_bullet.instance()
 			#Local e posição que ira sair a imagem 
 			bullet.global_position = $Barrel/Muzzle.global_position
-			#Direcao da bala
-			bullet.dir = Vector2(cos(rotation),sin(rotation)).normalized()
+			#Direcao da bala. Olha o node 2d chamado barrel = $barrel. global_rotation = rotacao levando em conta a posicao global da
+			#entidade
+			bullet.dir = Vector2(cos($Barrel.global_rotation),sin($Barrel.global_rotation)).normalized()
 			#Adiciona a animação na cena
 			get_parent().add_child(bullet)
 			$Barrel/AnimationPlayer.play("Fire")

@@ -3,9 +3,9 @@
 [ext_resource path="res://Scripts/Tank.gd" type="Script" id=1]
 [ext_resource path="res://sprites/tankBody_bigRed.png" type="Texture" id=2]
 [ext_resource path="res://sprites/specialBarrel1.png" type="Texture" id=3]
-[ext_resource path="res://sprites/shotRed.png" type="Texture" id=4]
-[ext_resource path="res://sprites/shotLarge.png" type="Texture" id=5]
-[ext_resource path="res://sprites/shotOrange.png" type="Texture" id=6]
+[ext_resource path="res://sprites/shotLarge.png" type="Texture" id=4]
+[ext_resource path="res://sprites/shotOrange.png" type="Texture" id=5]
+[ext_resource path="res://sprites/shotRed.png" type="Texture" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fire"
@@ -17,34 +17,34 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
+"times": PoolRealArray( 0, 0.100743, 0.201486 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ) ]
+"values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Fire:position")
+tracks/1/path = NodePath("Fire:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Vector2( -0.299558, -38.6874 ), Vector2( -0.299568, -41.6874 ), Vector2( -0.299583, -45.6874 ) ]
+"values": [ true, false ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Fire:visible")
+tracks/2/path = NodePath("Fire:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0.00157411, 0.100232, 0.199901 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ Vector2( 51.3364, 0.346924 ), Vector2( 53.4879, 0.727852 ), Vector2( 59.635, 1.03085 ) ]
 }
 
 [node name="Tank" type="KinematicBody2D"]
@@ -52,7 +52,6 @@ collision_mask = 6
 script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-rotation = 1.5708
 polygon = PoolVector2Array( -13.2947, -17.9691, -19.2675, -14.0737, -19.2675, 15.0115, -13.035, 18.3874, 12.6743, 18.3874, 18.9068, 15.2711, 19.1665, -14.5931, 12.4146, -18.2288 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -61,21 +60,19 @@ texture = ExtResource( 2 )
 
 [node name="Barrel" type="Node2D" parent="."]
 position = Vector2( 0.335617, -1.00683 )
-rotation = 1.5708
 
 [node name="Sprite" type="Sprite" parent="Barrel"]
-position = Vector2( 0.539803, -2.9188 )
+position = Vector2( 16.8902, 1.08121 )
+rotation = 1.5708
 texture = ExtResource( 3 )
 offset = Vector2( -0.204208, -7.88887 )
 
 [node name="Muzzle" type="Position2D" parent="Barrel"]
-position = Vector2( 0, -40.6089 )
-rotation = 1.5708
+position = Vector2( 46.1035, 0.953495 )
 
 [node name="Fire" type="Sprite" parent="Barrel"]
-visible = false
-position = Vector2( -0.299583, -45.6874 )
-rotation = -3.14159
+position = Vector2( 51.3364, 0.346924 )
+rotation = 4.71239
 texture = ExtResource( 4 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Barrel"]
