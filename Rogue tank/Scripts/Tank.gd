@@ -11,6 +11,10 @@ var MAX_SPEED = 100
 var acell = 0
 #Variavel que pré carrega uma cena para ser utilizado
 var pre_bullet = preload("res://scenes/Bullet.tscn")
+#pre carregar uma cena
+var pre_track = preload("res://scenes/Track.tscn")
+#Variavel para medir distancia.
+var travel = 0
 #variaveis para trocar a sprite das skins. Export para criar a aba de variaveis. int entre aspas para nomear a lista.
 # setget para visualizar as mudanças e fazer função
 export (int, "Big Red", "Blue", "Dark", "Dark Large", "Green", "huge", "Red", "Sand") var bodie = 0 setget set_bodie
@@ -133,14 +137,35 @@ func _physics_process(delta):
 	
 	#movimenta e bate em duas direcoes em velocidade e variacao entre cos e seno. Rotation e do script. 
 	#Dir e a variavel que eu fiz e depois foi transferido para o lerp
-	move_and_slide(Vector2( cos(rotation), sin(rotation) )* acell)
+	# var move = variavel com objetivo de guardar o nomero de movimentacao
+	var move = move_and_slide(Vector2( cos(rotation), sin(rotation) )* acell)
+	
+	#leght() = comprimento da distancia
+	travel += move.length()
+	
+	#se a distancia (travel) for maior que 3000 faca. travel = 0 serve para zerar a variavel travel 
+	if travel > 3000:
+		travel = 0
+		#adiciona a variavel track puxando do pre-scene. criamos aqui uma instancia e variavel track onde pode colocar 
+		#comportamento
+		var track = pre_track.instance()
+		# global position = pegar a posicao do tanque na cena. quer dizer que pega a posicao do tanque
+		track.global_position = global_position
+		# rotation = pegar a rotação do tanque na posicao global
+		track.rotation = rotation
+		#z index = ordem de criacao das layers
+		track.z_index = z_index - 1
+		#adiciona no meu parente
+		$"../".add_child(track)
+		
+		print("track")
 	
 	if Input.is_action_just_pressed("ui_shoot"):
 		#Funcao que limita o numero de balas
 		if get_tree().get_nodes_in_group("Cannon_bullets").size() < 6:
-			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene	
+			#Adicionar a variavel bullet e puxando os dados para ser utilizado do pre-scene
 			var bullet = pre_bullet.instance()
-			#Local e posição que ira sair a imagem 
+			#Local e posição que ira sair a imagem.  
 			bullet.global_position = $Barrel/Muzzle.global_position
 			#Direcao da bala. Olha o node 2d chamado barrel = $barrel. global_rotation = rotacao levando em conta a posicao global da
 			#entidade
