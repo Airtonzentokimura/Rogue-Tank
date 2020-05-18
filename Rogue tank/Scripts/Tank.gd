@@ -140,17 +140,21 @@ func _physics_process(delta):
 	# var move = variavel com objetivo de guardar o nomero de movimentacao
 	var move = move_and_slide(Vector2( cos(rotation), sin(rotation) )* acell)
 	
-	#leght() = comprimento da distancia
-	travel += move.length()
+	#leght() = comprimento da distancia. Se multiplicar por delta se transforma em pixel por segundo 
+	travel += move.length() * delta
 	
-	#se a distancia (travel) for maior que 3000 faca. travel = 0 serve para zerar a variavel travel 
-	if travel > 3000:
+	#se a distancia (travel) for maior que 46 faca. travel = 0 serve para zerar a variavel travel. Modificacao para pegar o tamanho
+	#do sprite para comercar a desenhar a trilha = $sprite (chama o no sprite em questao) e pega as informacoes texture e pega o
+	# tamanho vector 2 (x e Y). 
+	if travel > $Sprite.texture.get_size().y:
 		travel = 0
 		#adiciona a variavel track puxando do pre-scene. criamos aqui uma instancia e variavel track onde pode colocar 
 		#comportamento
 		var track = pre_track.instance()
-		# global position = pegar a posicao do tanque na cena. quer dizer que pega a posicao do tanque
-		track.global_position = global_position
+		# global position = pegar a posicao do tanque na cena. quer dizer que pega a posicao do tanque. tirou 5 pixel da posicao da
+		#trilha para ajuste. A direção = Vector2( cos(rotation), sin(rotation)) tirando o escalar do vetor = normalized() [tirando o
+		# comprimento e pegando apenas a direção].
+		track.global_position = global_position - Vector2( cos(rotation), sin(rotation)).normalized() * 5
 		# rotation = pegar a rotação do tanque na posicao global
 		track.rotation = rotation
 		#z index = ordem de criacao das layers

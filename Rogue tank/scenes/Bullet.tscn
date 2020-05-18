@@ -3,19 +3,19 @@
 [ext_resource path="res://Scripts/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://sprites/bulletRed1_outline.png" type="Texture" id=2]
 [ext_resource path="res://sprites/smokeWhite1.png" type="Texture" id=3]
-[ext_resource path="res://sprites/explosionSmoke1.png" type="Texture" id=4]
-[ext_resource path="res://sprites/explosionSmoke2.png" type="Texture" id=5]
-[ext_resource path="res://sprites/explosionSmoke3.png" type="Texture" id=6]
-[ext_resource path="res://sprites/explosionSmoke4.png" type="Texture" id=7]
-[ext_resource path="res://sprites/explosionSmoke5.png" type="Texture" id=8]
+[ext_resource path="res://sprites/explosionSmoke5.png" type="Texture" id=4]
+[ext_resource path="res://sprites/explosionSmoke1.png" type="Texture" id=5]
+[ext_resource path="res://sprites/explosionSmoke2.png" type="Texture" id=6]
+[ext_resource path="res://sprites/explosionSmoke3.png" type="Texture" id=7]
+[ext_resource path="res://sprites/explosionSmoke4.png" type="Texture" id=8]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 4.47456
 height = 6.08589
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.0059761, 0.571713, 0.760956, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0 )
+offsets = PoolRealArray( 0.0059761, 0.760956, 1 )
+colors = PoolColorArray( 1, 1, 1, 0.439216, 1, 1, 1, 0, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
@@ -54,7 +54,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 2.37841 ),
 "update": 1,
-"values": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]
+"values": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 4 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Self_destruction:visible")

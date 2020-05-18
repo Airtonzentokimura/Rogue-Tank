@@ -72,6 +72,7 @@ offset = Vector2( -0.204208, -7.88887 )
 position = Vector2( 46.1035, 0.953495 )
 
 [node name="Fire" type="Sprite" parent="Barrel"]
+visible = false
 position = Vector2( 51.3364, 0.346924 )
 rotation = 4.71239
 texture = ExtResource( 4 )
